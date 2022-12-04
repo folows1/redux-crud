@@ -1,15 +1,15 @@
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { IUser } from './interfaces/iUser';
-import { addUser, deleteUser, updateUsername } from './features/Users';
+import { addUser } from './features/Users';
 import { useState } from 'react';
+import { UserCard } from './features/UserCard';
 
 function App() {
   const dispatch = useDispatch();
   const userList: IUser[] = useSelector((state: any) => state.users.value);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-  const [newUsername, setNewUsername] = useState('');
 
   const cleanForm = () => {
     setName('');
@@ -37,30 +37,7 @@ function App() {
       </div>
       <div className='displayUsers'>
         {userList.map((user) => {
-          return <div key={user.id}>
-            <h1> {user.name} </h1>
-            <h1> {user.username} </h1>
-            <input type='text' placeholder='Update username...'
-              name={user.id.toString()}
-              id={user.id.toString()}
-              onChange={(event) => {
-                setNewUsername(event.target.value);
-              }}
-            />
-            <button onClick={
-              () => {
-                if (!newUsername || newUsername.trim() === '') return;
-                dispatch(updateUsername({
-                  id: user.id,
-                  username: newUsername
-                }))
-              }
-            }>Update Username</button>
-            <button
-              onClick={() => {
-                dispatch(deleteUser({ id: user.id }))
-              }}>Delete User</button>
-          </div>
+          return <UserCard key={user.id} user={user} />
         })}
       </div>
     </div>
