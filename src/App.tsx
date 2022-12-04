@@ -1,7 +1,7 @@
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { IUser } from './interfaces/iUser';
-import { addUser, deleteUser, updateUsername } from './features/Users';
+import { addUser } from './features/Users';
 import { useState } from 'react';
 import { UserCard } from './features/UserCard';
 
@@ -10,7 +10,6 @@ function App() {
   const userList: IUser[] = useSelector((state: any) => state.users.value);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
-  const [newUsername, setNewUsername] = useState('');
 
   const cleanForm = () => {
     setName('');
